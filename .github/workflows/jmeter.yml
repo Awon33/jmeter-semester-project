@@ -26,9 +26,12 @@ jobs:
       - name: Run Performance Tests
         run: |
           mkdir -p results reports
-          cd tests
-          ../jmeter/bin/jmeter -n -t load_test.jmx -l ../results/results.jtl -e -o ../reports/
-          cd ..
+          jmeter/bin/jmeter -n \
+          -t tests/load_test.jmx \
+          -l results/results.jtl \
+          -e -o reports/ \
+          -Dagg=false
+      
       - name: Upload HTML Report as Artifact
         uses: actions/upload-artifact@v4
         if: always()
